@@ -12,22 +12,38 @@ The backend repository for this project can be found here: [my-chat-backend](htt
 
 ### Setup
 
-1. Run the chat server (instruction in the backend repository [my-chat-backend](https://github.com/akenned8/my-chat-backend))
+1. Run the chat server and Localstack (instruction in the backend repository [my-chat-backend](https://github.com/akenned8/my-chat-backend))
 
 2. Install dependencies 
-```
-npm install
-```
+    ```
+    npm install
+    ```
 
 3. Create a ``.env`` file in the root directory and add the following environment variables:
-```
-REACT_APP_API_URL=http://localhost:5000
-REACT_APP_WS_URL=http://localhost:5000
-```
+    ```
+    REACT_APP_API_URL=http://localhost:5000
+    REACT_APP_WS_URL=http://localhost:5000
+    ```
 
 4. Run the application 
-```
-npm start
-```
+    
+    a. Deploy it to Localstack's S3
+    ```
+    make deploy-local
+    ```
 
-5. Open your browser and navigate to ``http://localhost:3000`` to access the chat application.
+    b. or, run it locally
+
+    ```
+    npm start
+    ```
+
+5. Access the chat application.
+
+    a. If deployed to Localstack's S3 
+
+    ``http://my-chat-app-bucket.s3-website.localhost.localstack.cloud:4566/``
+
+    b. If running locally
+
+    ``http://localhost:3000`` 
