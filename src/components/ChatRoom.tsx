@@ -16,6 +16,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { io, Socket } from 'socket.io-client';
 import { ChatMessage } from '../types/customTypes';
 import { chatApi } from '../api/chatApi';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ChatRoomProps {
     sessionId: string;
@@ -43,7 +44,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({ sessionId, userId, username 
                 ...prev,
                 {
                     sessionId,
-                    messageId: crypto.randomUUID(),
+                    messageId: uuidv4(),
                     userId: 'system',
                     username: 'System',
                     content: `${username} joined the chat`,

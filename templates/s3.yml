@@ -1,35 +1,34 @@
-Description: 'CloudFormation template for my-chat-app static website hosting'
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template for my-chat-app static website hosting"
 
 Resources:
   S3Bucket:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     Properties:
-      BucketName: my-chat-app-bucket
-      AccessControl: PublicRead
+      BucketName: my-chat-app-bucket-prod
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
 
   BucketPolicy:
-    Type: 'AWS::S3::BucketPolicy'
+    Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref S3Bucket
       PolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
           - Sid: PublicReadGetObject
             Effect: Allow
-            Principal: '*'
-            Action: 's3:GetObject'
-            Resource: !Join 
-              - ''
-              - - 'arn:aws:s3:::'
-                - !Ref S3Bucket
-                - /*
+            Principal: "*"
+            Action: "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
 
 Outputs:
   WebsiteURL:
-    Description: 'URL for website hosted on S3'
-    Value: !GetAtt 
-      - S3Bucket
-      - WebsiteURL
+    Description: "URL for website hosted on S3"
+    Value: !GetAtt S3Bucket.WebsiteURL
